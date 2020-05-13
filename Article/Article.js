@@ -85,6 +85,17 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: "Follow @Supreme.Ciento!",
+    date: "May 13th, 2020",
+                      firstParagraph: `Fun Fact: I've assembled, tested, repaired & shipped a wide variety of electronic and electro mechanical equipment.`,
+
+    secondParagraph: `"A sudden brilliant, creative, or timely idea."
+                      I dont have those so i need yours :) `,
+
+    thirdParagraph: `Success is liking yourself, liking what you do, and liking how you do it.
+                      Check out what i like to do.`
   }
 ];
 
@@ -111,3 +122,94 @@ const data = [
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 */
+
+function createArticle(obj) {
+
+  let html = document.querySelector("html");
+  let header = document.querySelector(".header");
+  let body = document.querySelector("body");
+  let articles = document.querySelector(".articles");
+  let article = document.createElement("div");
+  let h2 = document.createElement("h2");
+  let date = document.createElement("p");
+  let p1 = document.createElement("p");
+  let p2 = document.createElement("p");
+  let p3 = document.createElement("p");
+  let span = document.createElement("span");
+
+  html.classList.add("element");
+  header.classList.add("element3");
+  body.classList.add("element");
+  article.classList.add("article");
+  article.classList.add("element2");
+  date.classList.add("date");
+  span.classList.add("expandButton");
+
+  h2.textContent = obj.title;
+  date.textContent = obj.date;
+  p1.textContent = obj.firstParagraph;
+  p2.textContent = obj.secondParagraph;
+  p3.textContent = obj.thirdParagraph;
+  span.style = "bottom:1px";
+  span.textContent = "Click to Expand";
+
+  articles.append(article);
+  article.append(h2, date, p1, p2, p3, span);
+  span.addEventListener("click", function(obj) {
+    article.classList.toggle("article-open");
+  });
+
+  var styleyStyles = `
+  .element {
+    animation: pulse 6s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      background-color: #001F3F;
+    }
+    100% {
+      background-color: #FF4136;
+    }
+  }
+
+  .element2 {
+    animation: pulse2 6s infinite;
+  }
+
+  @keyframes pulse2 {
+    0% {
+      background-color: #FF4136;
+    }
+    100% {
+      background-color: #001F3F;
+    }
+  }
+
+  .element3 {
+    animation: pulse3 6s infinite;
+  }
+
+  @keyframes pulse3 {
+    0% {
+      background-color: #FF4136;
+      color: #001F3F;
+    }
+    100% {
+      background-color: #001F3F;
+      color: #FF4136;
+    }
+  }
+  `
+
+  var styleSheet = document.createElement("style")
+  styleSheet.type = "text/css"
+  styleSheet.innerText = styleyStyles
+  article.appendChild(styleSheet)
+    return articles;
+}
+
+/* See line 89 for new Article added to the array */
+let dataArr = data.forEach(obj => {
+  return createArticle(obj);
+});
