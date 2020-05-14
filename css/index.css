@@ -37,9 +37,11 @@
 }
 .articles {
   margin-top: 95px;
+  display: block;
 }
 .article {
   margin: 20px 10%;
+  display: block;
   padding: 0 20px 25px;
   border: 1px solid lightgrey;
   border-radius: 10px;
@@ -60,8 +62,10 @@
 }
 .article .close {
   position: absolute;
+  font-size: 12px;
   top: 10px;
   right: 10px;
+  height: 20px;
 }
 .article .expandButton {
   position: absolute;

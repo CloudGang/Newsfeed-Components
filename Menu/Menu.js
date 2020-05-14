@@ -54,3 +54,4 @@ function createMenu(arr) {
 }
 
 document.querySelector('.header').appendChild(createMenu(menuItems));
+

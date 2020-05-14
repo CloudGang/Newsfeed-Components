@@ -135,15 +135,23 @@ function createArticle(obj) {
   let p1 = document.createElement("p");
   let p2 = document.createElement("p");
   let p3 = document.createElement("p");
-  let span = document.createElement("span");
+  let span = document.createElement("button");
+  let close = document.createElement("button");
 
   html.classList.add("element");
   header.classList.add("element3");
   body.classList.add("element");
   article.classList.add("article");
+  articles.setAttribute('id', 'grow')
+  article.classList.add("measuringWrapper")
+  
   article.classList.add("element2");
   date.classList.add("date");
   span.classList.add("expandButton");
+  span.setAttribute('onclick', "growDiv()");
+  span.setAttribute('id', "more-button");
+  close.setAttribute('onclick', "close()");
+  close.classList.add("close");
 
   h2.textContent = obj.title;
   date.textContent = obj.date;
@@ -152,12 +160,25 @@ function createArticle(obj) {
   p3.textContent = obj.thirdParagraph;
   span.style = "bottom:1px";
   span.textContent = "Click to Expand";
+  close.style = "bottom:1px";
+  close.textContent = "Close";
 
   articles.append(article);
-  article.append(h2, date, p1, p2, p3, span);
+  article.append(h2, date, p1, p2, p3, span, close);
   span.addEventListener("click", function(obj) {
     article.classList.toggle("article-open");
   });
+
+  close.addEventListener("click", function close() {
+      var x = document.querySelector("button");
+      if (x.style.display === "block") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+      span.parentNode.style.display='none';
+  });
+
 
   var styleyStyles = `
   .element {
@@ -201,11 +222,32 @@ function createArticle(obj) {
     }
   }
   `
+  var bStyle = `
+  .expandButton:hover {
+    color: red;
+    background-color:rgba(0, 0, 0, 0.5);
+  }
 
+  .articles {
+    -moz-transition: height .5s;
+    -ms-transition: height .5s;
+    -o-transition: height .5s;
+    -webkit-transition: height .5s;
+    transition: height .5s;
+    height: 0;
+    overflow: none;
+  }
+  `
   var styleSheet = document.createElement("style")
   styleSheet.type = "text/css"
   styleSheet.innerText = styleyStyles
+
+  var styleSheet2 = document.createElement("style")
+  styleSheet2.type = "text/css"
+  styleSheet2.innerText = bStyle
+
   article.appendChild(styleSheet)
+  html.appendChild(styleSheet2)
     return articles;
 }
 
@@ -213,3 +255,17 @@ function createArticle(obj) {
 let dataArr = data.forEach(obj => {
   return createArticle(obj);
 });
+
+function growDiv() {
+  var growDiv = document.getElementById('grow');
+  
+  if (growDiv.clientHeight) {
+    growDiv.style.height = 0;
+  } else {
+    var wrapper = document.querySelector('.measuringWrapper');
+    growDiv.style.height = wrapper.clientHeight + "px";
+  }
+
+}
+
+
